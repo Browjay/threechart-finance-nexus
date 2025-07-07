@@ -5,6 +5,17 @@ import { Button } from '@/components/ui/button';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  console.log("Header component is rendering, isMenuOpen:", isMenuOpen);
+
+  const handleMenuToggle = () => {
+    console.log("Menu toggle clicked, current state:", isMenuOpen);
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLinkClick = (href: string) => {
+    console.log("Link clicked:", href);
+  };
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
@@ -21,23 +32,65 @@ export const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <a href="#products" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Products</a>
-            <a href="#indicators" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Indicators</a>
-            <a href="#education" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Education</a>
-            <a href="#signals" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">Signals</a>
-            <a href="#about" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">About</a>
+            <a 
+              href="#products" 
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium cursor-pointer"
+              onClick={() => handleLinkClick("#products")}
+            >
+              Products
+            </a>
+            <a 
+              href="#indicators" 
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium cursor-pointer"
+              onClick={() => handleLinkClick("#indicators")}
+            >
+              Indicators
+            </a>
+            <a 
+              href="#education" 
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium cursor-pointer"
+              onClick={() => handleLinkClick("#education")}
+            >
+              Education
+            </a>
+            <a 
+              href="#signals" 
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium cursor-pointer"
+              onClick={() => handleLinkClick("#signals")}
+            >
+              Signals
+            </a>
+            <a 
+              href="#about" 
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium cursor-pointer"
+              onClick={() => handleLinkClick("#about")}
+            >
+              About
+            </a>
           </nav>
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="sm">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => console.log("Search clicked")}
+            >
               <Search className="h-4 w-4" />
             </Button>
-            <Button variant="ghost" size="sm">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => console.log("Login clicked")}
+            >
               <User className="h-4 w-4" />
               <span className="ml-2">Login</span>
             </Button>
-            <Button variant="default" size="sm">
+            <Button 
+              variant="default" 
+              size="sm"
+              onClick={() => console.log("Cart clicked")}
+            >
               <ShoppingCart className="h-4 w-4" />
               <span className="ml-2">Cart (0)</span>
             </Button>
@@ -48,7 +101,7 @@ export const Header = () => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={handleMenuToggle}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -59,17 +112,57 @@ export const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-100">
             <div className="flex flex-col space-y-3">
-              <a href="#products" className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-3 py-2">Products</a>
-              <a href="#indicators" className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-3 py-2">Indicators</a>
-              <a href="#education" className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-3 py-2">Education</a>
-              <a href="#signals" className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-3 py-2">Signals</a>
-              <a href="#about" className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-3 py-2">About</a>
+              <a 
+                href="#products" 
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-3 py-2 cursor-pointer"
+                onClick={() => handleLinkClick("#products")}
+              >
+                Products
+              </a>
+              <a 
+                href="#indicators" 
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-3 py-2 cursor-pointer"
+                onClick={() => handleLinkClick("#indicators")}
+              >
+                Indicators
+              </a>
+              <a 
+                href="#education" 
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-3 py-2 cursor-pointer"
+                onClick={() => handleLinkClick("#education")}
+              >
+                Education
+              </a>
+              <a 
+                href="#signals" 
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-3 py-2 cursor-pointer"
+                onClick={() => handleLinkClick("#signals")}
+              >
+                Signals
+              </a>
+              <a 
+                href="#about" 
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-3 py-2 cursor-pointer"
+                onClick={() => handleLinkClick("#about")}
+              >
+                About
+              </a>
               <div className="border-t border-gray-100 pt-3 mt-3">
-                <Button variant="ghost" size="sm" className="w-full justify-start">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="w-full justify-start"
+                  onClick={() => console.log("Mobile Login clicked")}
+                >
                   <User className="h-4 w-4 mr-2" />
                   Login
                 </Button>
-                <Button variant="default" size="sm" className="w-full justify-start mt-2">
+                <Button 
+                  variant="default" 
+                  size="sm" 
+                  className="w-full justify-start mt-2"
+                  onClick={() => console.log("Mobile Cart clicked")}
+                >
                   <ShoppingCart className="h-4 w-4 mr-2" />
                   Cart (0)
                 </Button>

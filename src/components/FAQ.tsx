@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export const FAQ = () => {
+  console.log("FAQ component is rendering");
+  
   const faqs = [
     {
       question: "How do I get started with ThreeChart Finance products?",
@@ -38,6 +40,10 @@ export const FAQ = () => {
     }
   ];
 
+  const handleSupportClick = () => {
+    console.log("Support button clicked");
+  };
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,7 +75,10 @@ export const FAQ = () => {
 
         <div className="text-center mt-12">
           <p className="text-gray-600 mb-4">Still have questions?</p>
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+          <Button 
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+            onClick={handleSupportClick}
+          >
             Contact Our Support Team
           </Button>
         </div>
