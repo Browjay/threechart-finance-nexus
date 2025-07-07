@@ -1,12 +1,16 @@
 
 import React, { useState } from 'react';
-import { Menu, X, ShoppingCart, User, Search } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Menu, X, ShoppingCart, User, Search, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   
-  console.log("Header component is rendering, isMenuOpen:", isMenuOpen);
+  console.log("Header component is rendering, isMenuOpen:", isMenuOpen, "user:", user);
 
   const handleMenuToggle = () => {
     console.log("Menu toggle clicked, current state:", isMenuOpen);
@@ -17,6 +21,14 @@ export const Header = () => {
     console.log("Link clicked:", href);
   };
 
+  const handleAuthClick = () => {
+    if (isAuthenticated) {
+      signOut();
+    } else {
+      navigate('/auth');
+    }
+  };
+
   return (
     <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,7 +36,7 @@ export const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-slate-900">
+              <h1 className="text-2xl font-bold text-slate-900 cursor-pointer" onClick={() => navigate('/')}>
                 Three<span className="text-blue-600">Chart</span> Finance
               </h1>
             </div>
@@ -78,14 +90,32 @@ export const Header = () => {
             >
               <Search className="h-4 w-4" />
             </Button>
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={() => console.log("Login clicked")}
-            >
-              <User className="h-4 w-4" />
-              <span className="ml-2">Login</span>
-            </Button>
+            
+            {isAuthenticated ? (
+              <>
+                <span className="text-sm text-gray-600">
+                  Welcome, {user?.email?.split('@')[0]}
+                </span>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={handleAuthClick}
+                >
+                  <LogOut className="h-4 w-4" />
+                  <span className="ml-2">Logout</span>
+                </Button>
+              </>
+            ) : (
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={handleAuthClick}
+              >
+                <User className="h-4 w-4" />
+                <span className="ml-2">Login</span>
+              </Button>
+            )}
+            
             <Button 
               variant="default" 
               size="sm"
@@ -148,15 +178,32 @@ export const Header = () => {
                 About
               </a>
               <div className="border-t border-gray-100 pt-3 mt-3">
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="w-full justify-start"
-                  onClick={() => console.log("Mobile Login clicked")}
-                >
-                  <User className="h-4 w-4 mr-2" />
-                  Login
-                </Button>
+                {isAuthenticated ? (
+                  <>
+                    <div className="px-3 py-2 text-sm text-gray-600">
+                      Welcome, {user?.email?.split('@')[0]}
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="w-full justify-start"
+                      onClick={handleAuthClick}
+                    >
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Logout
+                    </Button>
+                  </>
+                ) : (
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="w-full justify-start"
+                    onClick={handleAuthClick}
+                  >
+                    <User className="h-4 w-4 mr-2" />
+                    Login
+                  </Button>
+                )}
                 <Button 
                   variant="default" 
                   size="sm" 
